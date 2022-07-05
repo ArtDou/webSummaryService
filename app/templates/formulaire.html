@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WYM</title>
+</head>
+<body>
+    <h1>Formulaire</h1>
+    <form action= "{{ url_for ('contacted') }}" method="GET">
+        <p>
+            <!-- Champ de type "text" -->
+            <label for="nom">Nom : </label>
+            <input type="text" name="nom" id="nom">
+        </p>
+        <p>
+             <!-- Champ de type "email" -->
+            <label for="email">Email : </label>
+            <input type="email" name="email" id="email">
+        </p>
+        <p>
+            <!-- Champ de type "téléphone" -->
+           <label for="téléphone">Téléphone : </label>
+           <input type="téléphone" name="téléphone" id="téléphone">
+       </p>
+        <p>
+            <!-- Zone de texte plus grande avec la balise <textarea> -->
+            <label for="commentaire">Écrire un commentaire : </label>
+            <textarea name="commentaire" id="commentaire" rows="6" cols="50"></textarea>
+        </p>
+        <p>
+            <!-- Bouton d'envoi du formulaire -->
+            <input type="submit" value="Envoyer le formulaire">
+            <!-- <button type="submit">Envoyer le formulaire</button> -->
+        </p>
+    </form>
+</body>
+</html>
