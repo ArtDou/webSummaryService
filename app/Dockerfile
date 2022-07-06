@@ -16,10 +16,10 @@ RUN pip install --no-cache-dir -r app/requirements.txt
 WORKDIR /app
 
 EXPOSE 5000
-ENV FLASK_APP=hello_flask.py
+ENV FLASK_APP=app.py
 
 ENTRYPOINT ["flask"]
 CMD ["run", "--host", "0.0.0.0"]
 
-# CMD ["python", "hello_flask.py"] 
+# CMD ["python", "app.py"] 
 # "app/init_db.py"
