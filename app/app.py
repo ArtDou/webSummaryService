@@ -26,12 +26,6 @@ def model():
         summary_text ="no text to summarized"
     return render_template("model.html", text=text_to_summarize, summary=summary_text)
 
-# @app.route("/result", methods=['GET','POST'])
-# def result():
-#     text='hello world'
-#     summary='Hello'
-#     return render_template("result.html", text=text, summary=summary)
-
 @app.route("/contact", methods=['GET','POST'])
 def formulaire():
     return render_template("formulaire.html")
