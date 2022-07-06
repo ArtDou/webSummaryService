@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WYM</title>
+</head>
+<body>
+    <h1>Model</h1>
+    <form action="/model" method="POST">
+        <p>
+            <!-- Zone de texte plus grande avec la balise <textarea> -->
+            <label for="Insert your text here:">Insert your text here: </label>
+            <textarea name="input_text" id="text" rows="20" cols="100"></textarea>
+        </p>
+        <p>
+            <!-- Bouton d'envoi du formulaire -->
+            <input type="submit" value="Execute">
+            <!-- <button type="submit">Envoyer le formulaire</button> -->
+        </p>
+    </form>
+
+    <div class="grid">
+      
+        <div>
+        <h4>Insert your text</h4>
+        <p> {{ text }}</p>  
+
+      </div>
+      
+      <div>
+        <h4>Text summary</h4>
+        <p> {{ summary }}</p>
+      </div>
+
+    </div>
+</body>
+</html>
