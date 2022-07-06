@@ -1,53 +1,61 @@
-from flask import Flask, render_template, request, flash
-from flask_sqlalchemy import SQLAlchemy
-
+from flask import Flask, render_template, request
+from sqlalchemy import create_engine, Table, Column, MetaData
 
 
 app = Flask(__name__)
 
-app.config['SQLACLHEMY_DATABASE_URI']='postgresql://wym_admin:admin@localhost/postgres-db'
+# Postgres username, password, and database name
+POSTGRES_ADDRESS = '0.0.0.0' ## INSERT YOUR DB ADDRESS IF IT'S NOT ON PANOPLY
+POSTGRES_PORT = '5432'
+POSTGRES_USERNAME = 'wym_admin'
+POSTGRES_PASSWORD = 'admin'
+POSTGRES_DBNAME = 'postgres-db'
 
-db=SQLAlchemy(app)
+# A long string that contains the necessary Postgres login information
+postgres_str = ('postgresql+psycopg2://{username}:{password}@{ipaddress}:{port}/{dbname}'.format(
+    username=POSTGRES_USERNAME,
+    password=POSTGRES_PASSWORD,
+    ipaddress=POSTGRES_ADDRESS,
+    port=POSTGRES_PORT,
+    dbname=POSTGRES_DBNAME))
 
-class Data(db.Model):
-    __tablename__='BDD'
-    id=db.Column(db.Integer, primary_key=True)
-    nom=db.Column(db.String)
-    téléphone=db.Column(db.String)
-    email=db.Column(db.String)
-    commentaire=db.Column(db.String)
+# Create the connection
+print(postgres_str)
+db = create_engine(postgres_str)
 
-    def __init__(self, nom, téléphone, email, commentaire):
-        self.nom=nom
-        self.téléphone=téléphone
-        self.email=email
-        self.commentaire=commentaire
+meta = MetaData(db)
+database = Table('user', meta,  
+                       Column('nom', String),
+                       Column('email', String),
+                       Column('téléphone', String),
+                       Column('commentaire', String))                  
+
+with db.connect() as conn:
+
+    # database.create() # METTRE UN IF TABLE EXIST ....
+    insert_statement = database.insert().values(nom="Doctor Strange2", email="doctor.strange2@doctor.com")
+    conn.execute(insert_statement)
+
+    # Read
+    select_statement = database.select()
+    result_set = conn.execute(select_statement)
+    for r in result_set:
+        print(r)
 
 
 @app.route("/home")
 def home():
     return render_template("index.html")
 
-@app.route("/contact", methods=['GET', 'POST'])
+@app.route("/contact", methods=['GET','POST'])
 def formulaire():
-
-    if request.method =='POST':
-        nom=request.form['nom']
-        téléphone=request.form['téléphone']
-        email=request.form['email']
-        commentaire=request.form['commentaire']
-
-    data=Data(nom, téléphone, email, commentaire)
-    db.session.add(data)
-    db.session.commit()
-
     return render_template("formulaire.html")
 
 @app.route("/about")
 def about():
     return render_template("about.html")
 
-@app.route("/contacted", methods=['GET'])
+@app.route("/contacted")
 def contacted():  
 
     return "Votre formulaire a bien été envoyé."
