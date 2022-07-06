@@ -29,8 +29,6 @@ services:
   wym_web:
     container_name: wym_web
     build: ../app
-    # expose:
-    #   - "5000"
     ports:
       - "5000:5000"
     restart: always
