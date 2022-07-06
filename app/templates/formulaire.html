@@ -8,7 +8,7 @@
 </head>
 <body>
     <h1>Formulaire</h1>
-    <form action= "{{ url_for ('contact') }}" method=>
+    <form action= "{{ url_for ('contacted') }}" method="POST">
         <p>
             <!-- Champ de type "text" -->
             <label for="nom">Nom : </label>
@@ -21,13 +21,13 @@
         </p>
         <p>
             <!-- Champ de type "téléphone" -->
-           <label for="téléphone">Téléphone : </label>
-           <input type="téléphone" name="téléphone" id="téléphone">
+           <label for="telephone">Téléphone : </label>
+           <input type="telephone" name="telephone" id="telephone">
        </p>
         <p>
             <!-- Zone de texte plus grande avec la balise <textarea> -->
-            <label for="commentaire">Écrire un commentaire : </label>
-            <textarea name="commentaire" id="commentaire" rows="6" cols="50"></textarea>
+            <label for="texte">Écrire un commentaire : </label>
+            <textarea name="texte" id="texte" rows="6" cols="50"></textarea>
         </p>
         <p>
             <!-- Bouton d'envoi du formulaire -->
