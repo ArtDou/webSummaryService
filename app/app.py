@@ -68,6 +68,7 @@ def read_all_bdd():
     for email in emails:  
         print(email)
 
+app = Flask(__name__)        
 
 @app.route("/home")
 def home():
@@ -93,8 +94,6 @@ def contacted():
 
 #@app.route("/model")
 #def model():
-    
-
-    
+ 
 if __name__== '__main__':
     app.run(debug=True)
