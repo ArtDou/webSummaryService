@@ -1,5 +1,8 @@
 from flask import Flask, render_template, request
 import requests
+
+from model import requests_model
+
 from sqlalchemy import create_engine, Table, Column, String, MetaData, Integer, inspect
 from sqlalchemy.ext.declarative import declarative_base  
 from sqlalchemy.orm import sessionmaker
@@ -69,6 +72,7 @@ def read_all_bdd():
     for email in emails:  
         print(email)
 
+
 app = Flask(__name__)        
 
 @app.route("/home")
@@ -79,16 +83,8 @@ def home():
 def model():
     text_to_summarize = request.form.get('input_text')
     
-    if request.method == 'POST':
-        model_port= 3000
-        url = f"http://localhost:{model_port}/model/predict"
-        headers = {"Content-Type": "application/json; charset=utf-8","accept": "application/json"}
-        json = {"text":[text_to_summarize]}
-        res = requests.post(url,  headers=headers, json=json)
-        if res.status_code == 200:
-            summary_text = res.text
-        else:   
-            summary_text =f"status_code:{res.status_code}"    
+    if request.method == 'POST':       
+       summary_text = requests_model(text_to_summarize)
     else: 
         summary_text ="no text to summarized"
     return render_template("model.html", text=text_to_summarize, summary=summary_text)
