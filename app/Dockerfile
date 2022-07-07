@@ -4,7 +4,6 @@ FROM python:3.8.6
 RUN apt-get update && apt-get -y upgrade
 
 COPY . ./app
-# ! attention peut etre à changer pour ce projet !
 
 # install dependencies
 
@@ -20,6 +19,3 @@ ENV FLASK_APP=app.py
 
 ENTRYPOINT ["flask"]
 CMD ["run", "--host", "0.0.0.0"]
-
-# CMD ["python", "app.py"] 
-# "app/init_db.py"

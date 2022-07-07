@@ -80,7 +80,7 @@ def model():
     text_to_summarize = request.form.get('input_text')
     
     if request.method == 'POST':
-        model_port= 5000
+        model_port= 3000
         url = f"http://localhost:{model_port}/model/predict"
         headers = {"Content-Type": "application/json; charset=utf-8","accept": "application/json"}
         json = {"text":[text_to_summarize]}
@@ -115,4 +115,4 @@ def contacted():
 #def model():
  
 if __name__== '__main__':
-    app.run(debug=True, port=8000)
+    app.run(debug=True)
