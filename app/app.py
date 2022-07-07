@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 import requests
-
+from model import requests_model
 
 app = Flask(__name__)        
 
@@ -13,15 +13,8 @@ def model():
     text_to_summarize = request.form.get('input_text')
     
     if request.method == 'POST':
-        model_port= 5000
-        url = f"http://localhost:{model_port}/model/predict"
-        headers = {"Content-Type": "application/json; charset=utf-8","accept": "application/json"}
-        json = {"text":[text_to_summarize]}
-        res = requests.post(url,  headers=headers, json=json)
-        if res.status_code == 200:
-            summary_text = res.text
-        else:   
-            summary_text =f"status_code:{res.status_code}"    
+       
+       summary_text = requests_model(text_to_summarize)
     else: 
         summary_text ="no text to summarized"
     return render_template("model.html", text=text_to_summarize, summary=summary_text)
