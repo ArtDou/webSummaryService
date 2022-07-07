@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.secret_key = "manbearpig_MUDMAN888"
 
 # Postgres username, password, and database name
-POSTGRES_ADDRESS = '0.0.0.0' ## INSERT YOUR DB ADDRESS IF IT'S NOT ON PANOPLY
+POSTGRES_ADDRESS = 'wym_db' ## INSERT YOUR DB ADDRESS IF IT'S NOT ON PANOPLY
 POSTGRES_PORT = '5432'
 POSTGRES_USERNAME = 'wym_admin'
 POSTGRES_PASSWORD = 'admin'
@@ -108,4 +108,4 @@ def contacted():
 #def model():
  
 if __name__== '__main__':
-    app.run(debug=True, port=8000)
+    app.run(debug=True, port=5000)

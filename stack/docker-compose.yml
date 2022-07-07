@@ -8,6 +8,8 @@ services:
     restart: always
     ports:
       - 5432:5432
+    expose:
+      - "5432"
     environment:
       POSTGRES_USER: wym_admin
       POSTGRES_PASSWORD: admin
@@ -18,18 +20,23 @@ services:
     networks:
       - wym
   wym_model:
-    container_name: wym_web
+    container_name: wym_model
     image: quay.io/codait/max-text-summarizer
     restart: always
     ports:
-      - "5000:5000"
+      - "3000:5000"
+    expose:
+      - "3000"
     networks:
       - wym
   wym_web:
     container_name: wym_web
     build: ../app
+    links:
+      - wym_db
+      - wym_model
     ports:
-      - "8000:8000"
+      - "8000:5000"
     restart: always
     depends_on:
       - wym_model
