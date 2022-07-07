@@ -1,8 +1,5 @@
 from flask import Flask, render_template, request
-import requests
-
 from model import requests_model
-
 from sqlalchemy import create_engine, Table, Column, String, MetaData, Integer, inspect
 from sqlalchemy.ext.declarative import declarative_base  
 from sqlalchemy.orm import sessionmaker
