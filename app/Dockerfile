@@ -14,7 +14,7 @@ RUN pip install --no-cache-dir -r app/requirements.txt
 
 WORKDIR /app
 
-EXPOSE 5000
+EXPOSE 8000
 ENV FLASK_APP=app.py
 
 ENTRYPOINT ["flask"]
