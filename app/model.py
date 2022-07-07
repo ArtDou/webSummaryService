@@ -1,12 +1,11 @@
 import requests
-
-text_to_summarize = input("Please enter your text: ")
-
-res=requests.post("http://localhost:5000/model/predict", json={
-  "text": [
-    text_to_summarize
-  ]
-})
-print(res.status_code)
-print('Text summarized',res.text)
-print('Info headers:',res.headers)
+def requests_model(text_to_summarize):
+ model_port= 5000
+ url = f"http://localhost:{model_port}/model/predict"
+ headers = {"Content-Type": "application/json; charset=utf-8","accept": "application/json"}
+ json = {"text":[text_to_summarize]}
+ res = requests.post(url,  headers=headers, json=json)
+ if res.status_code == 200:
+  return res.json()['summary_text'][0]
+ else:   
+   return f"status_code:{res.status_code}"    
