@@ -85,6 +85,7 @@ def model():
     else: 
         summary_text ="no text to summarized"
     return render_template("model.html", text=text_to_summarize, summary=summary_text)
+    
 
 @app.route("/contact", methods=['GET','POST'])
 def formulaire():
@@ -98,14 +99,16 @@ def about():
 @app.route("/contacted", methods= ['GET', 'POST'])
 def contacted():
     name = request.form['nom']
+    email = request.form['email']
+    telephone = request.form['telephone']
+    texte = request.form['texte']
     if request.method == 'POST': 
-        print(name)       
-        add_entry_bdd(nom=name)
+             
+        add_entry_bdd(nom=name, email=email, telephone=telephone, texte=texte)
 
     return render_template("contacted.html", nom=name) 
 
-#@app.route("/model")
-#def model():
+
  
 if __name__== '__main__':
     app.run(debug=True, port=5000)
