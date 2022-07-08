@@ -31,8 +31,8 @@ db = create_engine(postgres_str)
 base = declarative_base()
 
 # Définition de la classe de l'objet enregistrer dans la base de donnée
-class User(base):
-    __tablename__ = 'User'
+class Users(base):
+    __tablename__ = 'Users'
 
     id = Column(Integer, primary_key = True)
     nom = Column(String)
@@ -46,7 +46,7 @@ Session = sessionmaker(db)
 session = Session()
 
 # Vérification de l'existence de la base de donnée
-if not inspect(db).has_table('User'):
+if not inspect(db).has_table('Users'):
     base.metadata.create_all(db)
 
 def add_entry_bdd(nom, email="", telephone="", texte="", resume=""):
@@ -56,7 +56,7 @@ def add_entry_bdd(nom, email="", telephone="", texte="", resume=""):
         * nom, email, telephone, texte, resume corespond au donnée du formulaire
     '''
     # Create 
-    entry = User(nom=nom, email=email, telephone=telephone, texte=texte, resume=resume)  
+    entry = Users(nom=nom, email=email, telephone=telephone, texte=texte, resume=resume)  
     session.add(entry)  
     session.commit()
 
@@ -65,7 +65,7 @@ def read_all_bdd():
     read_all_bdd affiche la totalité de la base de donnée dans le terminal
     '''
     # Read
-    emails = session.query(User)  
+    emails = session.query(Users)  
     for email in emails:  
         print(email)
 
@@ -89,7 +89,6 @@ def model():
 
 @app.route("/contact", methods=['GET','POST'])
 def formulaire():
-
     return render_template("formulaire.html")
 
 @app.route("/about")
@@ -101,10 +100,11 @@ def contacted():
     name = request.form['nom']
     email = request.form['email']
     telephone = request.form['telephone']
-    texte = request.form['texte']
-    if request.method == 'POST': 
-             
-        add_entry_bdd(nom=name, email=email, telephone=telephone, texte=texte)
+    text_to_summarize = request.form.get('texte') 
+
+    if request.method == 'POST':
+        summary_text = requests_model(text_to_summarize)
+        add_entry_bdd(nom=name, email=email, telephone=telephone, texte=text_to_summarize, resume=summary_text )
 
     return render_template("contacted.html", nom=name) 
 

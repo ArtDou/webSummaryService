@@ -43,6 +43,21 @@ services:
       - wym_db
     networks:
       - wym
+  wym_monitor:
+    container_name: wym_monitor
+    build: ../monitoring
+    restart: always
+    ports:
+      - "8001:8501"
+    expose:
+      - "8001"
+    links:
+      - wym_db
+    depends_on:
+      - wym_web
+      - wym_db
+    networks:
+      - wym
 volumes:
   wym_db:
 networks:
